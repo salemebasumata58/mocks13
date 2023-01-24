@@ -5,7 +5,8 @@ const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 const authMidelwares =async (req, res, next)=>{
     let token = req.headers.authorization;
-    console.log(token);
+    // token.slice(1, -1)
+    console.log("token", token);
     if(!token){
         return res.status(401).send("unauthorized");
     }
@@ -32,7 +33,7 @@ const app = express.Router();
 app.get("/", async(req,res)=>{
   try{
     let jobs = await Jobs.find();
-    return res.send(jobs)
+    return res.json(jobs)
 
   }catch(e){
     res.status(404).send(e.message);

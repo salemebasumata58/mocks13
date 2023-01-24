@@ -57,6 +57,7 @@ app.post("/login", async (req, res) => {
         );
         return res.send({
           token: token,
+          role: user.role,
           message: "Login Successfull",
         });
       } else {
