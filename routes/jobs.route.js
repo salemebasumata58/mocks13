@@ -6,13 +6,17 @@ const jwt = require("jsonwebtoken");
 const authMidelwares =async (req, res, next)=>{
     let token = req.headers.authorization;
     // token.slice(1, -1)
-    console.log("token", token);
+    let t =""
+    for(let i=1; i<token.length-1; i++){
+    t+= token[i]
+}
+    console.log("token", t);
     if(!token){
         return res.status(401).send("unauthorized");
     }
     try{
-        const verification = jwt.verify(token, "MYSECRET12345");
-        const { role } = jwt.decode(token);
+        const verification = jwt.verify(t, "MYSECRET12345");
+        const { role } = jwt.decode(t);
 
         console.log(role)
         if(verification){
@@ -59,6 +63,7 @@ app.patch("/:id", async (req, res) => {
     const { id } = req.params;
     
   console.log(id);
+  console.log("r", req.body)
 
   try {
      let jobs = await Jobs.findByIdAndUpdate(
